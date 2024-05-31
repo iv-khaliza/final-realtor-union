@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="card mb-3">
+    <div class="card mb-3 shadow p-3 mb-1 bg-body rounded">
         <img style="height: 600px" src="{{ offer.img }}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">${{ offer.price }}</h5>
+            <p class="card-text">{{ offer.address }}</p>
+            <p><span class="text-muted">Общая площадь: </span>{{ offer.square }}м² <span class="text-muted">Кол-во комнат: </span>{{ offer.num_of_rooms }}</p>
             <p class="card-text">{{ offer.body }}</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text"><a href="{{ url_for('company', name=offer.author.name) }}"><span class="badge bg-primary rounded-pill">{{ offer.author.name }}</span></a> <small class="text-muted">{{ moment(offer.timestamp).fromNow() }}</small> </p>
+
         </div>
     </div>
     <h5>May be...</h5>
@@ -15,4 +18,6 @@
             {% include "_order.html" %}
         {% endfor %}
     </div>
+
+
 {% endblock %}

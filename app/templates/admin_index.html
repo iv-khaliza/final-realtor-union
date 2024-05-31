@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 align="center">Admin Panel</h1>
+    {{ moment.include_moment() }}
+    {% for company in companies %}
+        <h4>{{ company.name }}</h4>
+        <hr>
+        {% for flat in company.flats_comp() %}
+            <p><a href="{{ url_for('offer', id=flat.id) }}">id {{ flat.id }}</a> price {{ flat.price }} data {{ moment(flat.timestamp).format('LLL') }} <a href="{{ url_for('delete_flat', fid=flat.id) }}">delete</a></p>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

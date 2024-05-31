@@ -9,7 +9,7 @@
                     <td width="200"><img src="{{ company.avatar(128) }}" class="rounded-circle" ></td>
                     <td>
                         <h1>Company: {{ company.name }}</h1>
-                        {% if company.phone %} <p>{{ company.phone }}</p>{% endif %}
+                        {% if company.phone %} <p><span class="text-muted">Phone: </span>{{ company.phone }}</p>{% endif %}
                         {% if company.body %} <p>{{ company.body }}</p>{% endif %}
 
                     </td>

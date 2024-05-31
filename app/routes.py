@@ -6,8 +6,6 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, AddOffer
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
-sess = Session()
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -27,6 +25,8 @@ def login():
             flash('Invalid name or password')
             return redirect(url_for('login'))
         login_user(name, remember=form.remember_me.data)
+        if current_user.name == 'admin':
+            return redirect(url_for('admin'))
         return redirect(url_for('index'))
     return render_template('login.html', title='Sing In', form=form)
 
@@ -56,7 +56,9 @@ def company(name):
 
     if form.validate_on_submit():
         if form.offer_type.data == 're':
-            flat = Flat(f_type=form.flat_type.data, order_type=form.offer_type.data, price=form.price.data, num_of_rooms=form.nor.data, address=form.address.data, square=form.square.data, body=form.body.data, img=form.img.data, author=current_user)
+            flat = Flat(f_type=form.flat_type.data, order_type=form.offer_type.data, \
+                        price=form.price.data, num_of_rooms=form.nor.data, address=form.address.data, \
+                        square=form.square.data, body=form.body.data, img=form.img.data, author=current_user)
             db.session.add(flat)
             db.session.commit()
         elif form.offer_type.data == 'sa':
@@ -92,4 +94,25 @@ def edit_profile():
 def offer(id):
     offer = Flat.query.get(int(id))
     flats = db.session.scalars(sa.select(Flat).order_by(Flat.timestamp.desc()))
-    return render_template('offer.html', offer=offer, flats=flats)
+    return render_template('offer.html', offer=offer, flats=flats, title='Offer')
+
+@app.route('/delete/<fid>')
+def delete_flat(fid):
+    flat = Flat.query.get(int(fid))
+    if flat:
+        db.session.delete(flat)
+        db.session.commit()
+    return redirect(url_for('admin'))
+
+@app.route('/admin')
+def admin():
+    if current_user.is_anonymous:
+        flash('No no no Mr Fish')
+        return redirect(url_for('index'))
+    else:
+        if current_user.name == 'admin':
+            companies = Company.query.all()
+            return render_template('admin_index.html', title="admin", companies=companies)
+        else:
+            return redirect(url_for('index'))
+

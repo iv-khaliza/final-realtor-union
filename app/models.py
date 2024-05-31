@@ -30,6 +30,9 @@ class Company(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
 
+    def flats_comp(self):
+        return db.session.scalars(self.flats.select()).all()
+
 class Flat(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     f_type: so.Mapped[str] = so.mapped_column(sa.String(32))
