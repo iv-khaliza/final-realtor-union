@@ -1,0 +1,21 @@
+<div class="col">
+    <div class="card shadow p-3 mb-1 bg-body rounded">
+        <img src="{{ flat.img }}" class="card-img-top" height="280" alt="...">
+        <div class="card-body">
+            {% if flat.order_type == "sa" %}
+                <h5 class="card-title">${{ flat.price }}</h5>
+
+            {% elif flat.order_type == "re" %}
+                <h5 class="card-title">${{ flat.price }} per/month</h5>
+            {% else %}
+                <h5 class="card-title">${{ flat.price }} Старая</h5>
+            {% endif %}
+            <p class="card-text">
+                {{ flat.f_type }}<br>
+                {{ flat.address }}
+            </p>
+            <a href="{{ url_for('company', name=flat.author.name) }}"><span class="badge bg-primary rounded-pill">{{ flat.author.name }}</span></a>
+            <a href="{{ url_for('offer', id=flat.id) }}" class="stretched-link"></a>
+        </div>
+    </div>
+</div>

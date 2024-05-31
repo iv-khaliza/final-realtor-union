@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block content %}
+    <h1>Register</h1>
+<!--    <form action="" method="post" novalidate>-->
+<!--        {{ form.hidden_tag() }}-->
+<!--        <p>-->
+<!--            {{ form.name.label }}<br>-->
+<!--            {{ form.name(size=32) }}-->
+<!--            {% for error in form.name.errors %}-->
+<!--            <span style="color: red">[{{ error }}]</span>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            {{ form.email.label }}<br>-->
+<!--            {{ form.email(size=32) }}-->
+<!--            {% for error in form.name.errors %}-->
+<!--            <span style="color: red">[{{ error }}]</span>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            {{ form.password.label }}<br>-->
+<!--            {{ form.password(size=32) }}-->
+<!--            {% for error in form.password.errors %}-->
+<!--            <span style="color: red">[{{ error }}]</span>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            {{ form.password1.label }}<br>-->
+<!--            {{ form.password1(size=32) }}-->
+<!--            {% for error in form.password1.errors %}-->
+<!--            <span style="color: red">[{{ error }}]</span>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
+<!--        <p>{{ form.submit() }}</p>-->
+<!--    </form>-->
+    {{ wtf.quick_form(form) }}
+    <p>Already have account? <a href="{{ url_for('login') }}">Sing In</a></p>
+{% endblock %}

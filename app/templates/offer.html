@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card mb-3">
+        <img style="height: 600px" src="{{ offer.img }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${{ offer.price }}</h5>
+            <p class="card-text">{{ offer.body }}</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <h5>May be...</h5>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for flat in flats %}
+            {% include "_order.html" %}
+        {% endfor %}
+    </div>
+{% endblock %}
